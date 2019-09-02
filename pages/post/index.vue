@@ -1,10 +1,17 @@
 <template>
-  <div>攻略首页</div>
+  <div>
+   luyougongl
+  </div>
 </template>
 
 <script>
 export default {
+data(){
+  return{}
+},
+methods:{
 
+}
 }
 </script>
 
