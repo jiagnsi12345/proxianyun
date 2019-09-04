@@ -14,7 +14,7 @@
           <!-- 登录功能组件 -->
           <loginForm v-if=" current === 0 "></loginForm>
           <!-- 注册功能组件 -->
-
+          <register v-if=" current === 1 "></register>
         </div>
       </el-row>
   </div>
@@ -22,11 +22,12 @@
 
 <script>
 import loginForm from '@/components/user/loginForm.vue'
+import register from '@/components/user/register.vue'
 export default{
   
 data(){
   return{
-    current:0
+    current:1
   }
 },
 methods:{
@@ -35,7 +36,8 @@ methods:{
   }
 },
 components:{
-  loginForm
+  loginForm,
+  register
 }
 }
  
@@ -43,7 +45,7 @@ components:{
 
 <style scoped lang="less">
 .container{
-    background:url(http://157.122.54.189:9095/assets/images/th03.jfif) center 0;
+    background:url(http://127.0.0.1:1337/assets/images/th03.jfif) center 0;
     height: 700px;
     min-width:1000px;
 

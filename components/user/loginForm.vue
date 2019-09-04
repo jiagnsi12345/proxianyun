@@ -1,5 +1,5 @@
 <template>
-    <el-form status-icon class="form" :rules="rules" :model="form" :ref="form">
+    <el-form status-icon class="form" :rules="rules" :model="form" ref="form">
   <el-form-item  class="form-item" prop="username">
     <el-input placeholder="用户名/手机" v-model="form.username" ></el-input>
   </el-form-item>
@@ -50,9 +50,10 @@ export default {
                         method:'post',
                         data:this.form
                     }).then(res=>{
-
-                    }).catch(err=>{
-                        
+                        this.$store.commit('user/setUserInfo',res.data)
+                        setTimeout(()=>{
+                            this.$router.replace('/')
+                        },1000)
                     })
                 }else{
                   

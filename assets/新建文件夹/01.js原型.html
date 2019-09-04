@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="dv"></div>
+</body>
+<script>
+// function changStyle(btnobj,dvobj,json){
+//     this.btnobj=btnobj;
+//     this.dvobj=dvobj;
+//     this.json=json;
+// }
+// changStyle.prototype.init=function(){
+//     var that = this;
+//     this.btnobj.conclick=function(){
+//         for(var key in that.json){
+//            that.dvobj.style[key]=that.json[key] 
+//         }
+//     }
+// }
+// var json={'width':'500px','height':'800px','background':'blue','opacity':'0.2'}
+// var cs=new changStyle(my$("p1"),my$('dv'),json);
+// cs.init()
+
+// function stundet(name,age,gender){
+//     this.name=name;
+//     this.age=age;
+//     this.gender=gender
+// }
+// stundet.prototype.study=function(){
+//     console.log('我要每天打代码')
+// }
+
+// function student(name,age,gender){
+//     this.name=name;
+//     this.age=age;
+//     this.gender=gender
+// }
+// student.prototype={
+//    constructor:student,
+//    weight:'50kg',
+//    height:'188cm',
+//    work:function(){
+//        console.log('play code')
+//    }
+
+// }
+
+// student.prototype.height='188';
+// student.prototype.weight='50kg';
+// student.prototype.work=function(){
+//     console.log('play code.everday')
+// }
+
+
+// var stu=new student('josn',15,'man')
+// stu.height;
+// stu.weight;
+// stu.work();
+
+Array.prototype.mysort=function(){
+    for(var i=0;i<this.length;i++){
+        for(var j=0;j<this.length-i;j++){
+            if(this[j]>this[j+1]){
+                let temp=this[j+1];
+                this[j+1]=this[j];
+                this[j+1]=temp
+
+            }
+        }
+    }
+}
+var arr=[2,5,6]
+arr.mysort()
+
+</script>
+</html>
