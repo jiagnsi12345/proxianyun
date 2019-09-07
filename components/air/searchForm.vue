@@ -71,8 +71,8 @@ export default {
           }
     },
     //返回的城市
-    newData:[],
-    newData2:[]
+    DepartData:[],
+    destData:[]
   }},
   methods: {
     handleSearchTab(index) {
@@ -99,7 +99,7 @@ export default {
                 newData.push(v)
             })
             
-            this.newData=newData;
+            this.DepartData=newData;
             // this.form.departCity=newData[0].value;
             // this.form.departCode=newData[0].sort
             callback(newData)
@@ -130,7 +130,7 @@ export default {
                 newData2.push(v)
             })
              
-             this.newData2=newData2;
+             this.destData=newData2;
             // this.form.destCity=newData2[0].value
             // this.form.destCode=newData2[0].sort
             callback(newData2)
@@ -170,12 +170,12 @@ export default {
         })
     },
     handleDepartBlur(){
-      this.form.departCity=newData[0]?newData[0].value:'';
-      this.form.departCode=newData[0]?newData[0].sort:'';
+      this.form.departCity=this.DepartData[0]?this.DepartData[0].value:'';
+      this.form.departCode=this.DepartData[0]?this.DepartData[0].sort:'';
     },
     handleDestBlur(){
-      this.form.destCity=newData2[0]?newData2[0].value:'';
-      this.form.destCode=newData2[0]?newData2[0].sort:'';
+      this.form.destCity=this.destData[0]?this.destData[0].value:'';
+      this.form.destCode=this.destData[0]?this.destData[0].sort:'';
     }
   }
 };
