@@ -128,7 +128,7 @@ export default {
         position: relative;
         margin-right: 8px;
         cursor: pointer;
-
+ 
         i {
           position: absolute;
           z-index: 2;

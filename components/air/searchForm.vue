@@ -19,6 +19,7 @@
         <el-autocomplete
           v-model="form.departCity"
           :fetch-suggestions="queryDepartSearch"
+          @blur="handleDepartBlur"
           placeholder="请输入内容"
           @select="handleDepartSelect"
         ></el-autocomplete>
@@ -28,6 +29,7 @@
           v-model="form.destCity"
           :fetch-suggestions="queryDestSearch"
           placeholder="请输入内容"
+          @blur="handleDestBlur"
           @select="handleDestSelect"
         ></el-autocomplete>
       </el-form-item>
@@ -65,9 +67,12 @@ export default {
       },
       pickerOptions: {
           disabledDate(time) {
-            console.dir(time.getTime)
+            return time.getTime() < Date.now() - 8.64e7
           }
-    }
+    },
+    //返回的城市
+    newData:[],
+    newData2:[]
   }},
   methods: {
     handleSearchTab(index) {
@@ -94,8 +99,9 @@ export default {
                 newData.push(v)
             })
             
-            this.form.departCity=newData[0].value;
-            this.form.departCode=newData[0].sort
+            this.newData=newData;
+            // this.form.departCity=newData[0].value;
+            // this.form.departCode=newData[0].sort
             callback(newData)
 
             
@@ -124,8 +130,9 @@ export default {
                 newData2.push(v)
             })
              
-            this.form.destCity=newData2[0].value
-            this.form.destCode=newData2[0].sort
+             this.newData2=newData2;
+            // this.form.destCity=newData2[0].value
+            // this.form.destCode=newData2[0].sort
             callback(newData2)
           
         })
@@ -161,6 +168,14 @@ export default {
           path:"/air/flights",
           query:this.form
         })
+    },
+    handleDepartBlur(){
+      this.form.departCity=newData[0]?newData[0].value:'';
+      this.form.departCode=newData[0]?newData[0].sort:'';
+    },
+    handleDestBlur(){
+      this.form.destCity=newData2[0]?newData2[0].value:'';
+      this.form.destCode=newData2[0]?newData2[0].sort:'';
     }
   }
 };
