@@ -62,8 +62,9 @@ export default {
 
       const dep = this.data.dep_time.split(":");
       let arr = this.data.arr_time.split(":");
+      
       if(dep[0]>arr[0]){
-          arr[0]+24;
+          arr[0]+=24;
       }
       const depval = dep[0] * 60 + +dep[1];
       const arrval = arr[0] * 60 + +arr[1];

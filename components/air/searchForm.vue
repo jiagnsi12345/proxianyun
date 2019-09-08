@@ -35,7 +35,8 @@
       </el-form-item>
 
       <el-form-item label="出發時間">
-        <el-date-picker type="date" placeholder="选择日期" style="width: 100%;" @change="handleDate" v-model="form.departDate" :picker-options="pickerOptions"></el-date-picker>
+        <el-date-picker type="date" placeholder="选择日期" style="width: 100%;" @change="handleDate" v-model="form.departDate" ></el-date-picker>
+        <!-- :picker-options="pickerOptions" -->
       </el-form-item>
 
       <el-form-item>
@@ -65,11 +66,11 @@ export default {
           destCode:"",
           departDate:""
       },
-      pickerOptions: {
-          disabledDate(time) {
-            return time.getTime() < Date.now() - 8.64e7
-          }
-    },
+    //   pickerOptions: {
+    //       disabledDate(time) {
+    //         return time.getTime() < Date.now() - 8.64e7
+    //       }
+    // },
     //返回的城市
     DepartData:[],
     destData:[]

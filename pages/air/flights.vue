@@ -3,6 +3,7 @@
     <el-row type="flex" justify="space-between">
       <div class="flights-content">
         <!-- 过滤条件 -->
+        <flightsFliters :data='cacheDataList' @setDataList="setDataList"/>
 
         <!-- 航班头部布局 -->
         <flightslistheader />
@@ -30,10 +31,12 @@
 <script>
 import flightslistheader from "@/components/air/flightslistheader.vue";
 import flightsitem from "@/components/air/flightsitem.vue";
+import flightsFliters from "@/components/air/flightsFliters.vue";
 export default {
   components: {
     flightslistheader,
-    flightsitem
+    flightsitem,
+    flightsFliters
   },
   mounted() {
     this.$axios({
@@ -41,6 +44,8 @@ export default {
       params: this.$route.query
     }).then(res => {
       this.flightsData = res.data;
+      this.cacheDataList={...res.data};
+      console.log(res.data);
       this.total=this.flightsData.total;
       this.dataList=this.flightsData.flights.slice(0,this.pageSize)
       
@@ -48,7 +53,14 @@ export default {
   },
   data() {
     return {
-      flightsData: {},
+      flightsData: {
+        info:{},
+        options:{}
+      },
+      cacheDataList:{
+        info:{},
+        options:{}
+      },
       total:0,
       pageSize:5,
       indexPage:1,
@@ -63,6 +75,15 @@ export default {
       handleCurrentChange(val){
           this.indexPage=val;
           this.dataList=this.flightsData.flights.slice((this.indexPage-1)*this.pageSize,this.indexPage*this.pageSize)
+      },
+      setDataList(arr){
+        this.flightsData.flights=arr;
+        this.indexPage = 1;
+        this.dataList=this.flightsData.flights.slice(
+          (this.indexPage-1)*this.pageSize,
+          this.indexPage*this.pageSize
+        );
+        this.total=arr.length;
       }
   }
 };
