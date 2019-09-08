@@ -22,9 +22,7 @@
       </div>
 
       <!-- 侧边栏 -->
-      <div class="aside">
-        <!-- 侧边栏组件 -->
-      </div>
+      <flightsAside/>
     </el-row>
   </section>
 </template>
@@ -32,24 +30,32 @@
 import flightslistheader from "@/components/air/flightslistheader.vue";
 import flightsitem from "@/components/air/flightsitem.vue";
 import flightsFliters from "@/components/air/flightsFliters.vue";
+import flightsAside from "@/components/air/flightsAside.vue";
 export default {
   components: {
     flightslistheader,
     flightsitem,
-    flightsFliters
+    flightsFliters,
+    flightsAside
   },
   mounted() {
     this.$axios({
-      url: "/airs",
-      params: this.$route.query
-    }).then(res => {
-      this.flightsData = res.data;
-      this.cacheDataList={...res.data};
-      console.log(res.data);
-      this.total=this.flightsData.total;
-      this.dataList=this.flightsData.flights.slice(0,this.pageSize)
-      
-    });
+                url: "airs",
+                // 路由的url参数
+                params: this.$route.query
+            }).then(res => {
+                // 赋值给总数据
+                this.flightsData = res.data;
+
+                // 赋值给缓存总数据
+                this.cacheDataList = {...res.data};
+
+                // 分页的总条数
+                this.total =  this.flightsData.flights.length;
+
+                // 第一页的值
+                this.dataList = this.flightsData.flights.slice(0, this.pageSize);
+            })
   },
   data() {
     return {
@@ -85,6 +91,19 @@ export default {
         );
         this.total=arr.length;
       }
+  },
+  watch:{
+   $route(){
+      this.$axios({
+        url:"airs",
+        params:this.$route.query
+      }).then(res=>{
+        this.flightsData =res.data;
+        this.cacheDataList = {...res.data};
+        this.total = this.flightsData.flights.length;
+        this.dataList = this.flightsData.flights.slice(0,this.pageSize)
+      })
+    }
   }
 };
 </script>

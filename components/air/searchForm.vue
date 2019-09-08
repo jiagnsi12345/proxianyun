@@ -165,6 +165,10 @@ export default {
           this.$alert("请选择日期","提示")
           return
         }
+        
+        const arr = JSON.parse(localStorage.getItem("airs"))||[];
+        arr.push(this.form)
+        localStorage.setItem("airs",JSON.stringify(arr))
         this.$router.push({
           path:"/air/flights",
           query:this.form
