@@ -61,7 +61,7 @@ export default {
     rankTime() {
 
       const dep = this.data.dep_time.split(":");
-      const arr = this.data.arr_time.split(":");
+      let arr = this.data.arr_time.split(":");
       if(dep[0]>arr[0]){
           arr[0]+24;
       }
