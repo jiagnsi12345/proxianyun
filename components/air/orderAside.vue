@@ -41,13 +41,39 @@
         </el-row>
         <el-row type="flex" justify="space-between" align="middle" class="info-bar">
             <span>应付总额：</span>
-            <span class="price">￥ </span>
+            <span class="price">￥{{$store.state.air.allPrice}}</span>
         </el-row>           
     </div>
 </template>
 <script>
 export default {
-    
+    props:{
+        data:{
+            type:Object,
+            default:{
+                seat_infos:{}
+            }
+        }
+        
+    },
+    computed:{
+        rankTime() {
+
+      const dep = this.data.dep_time.split(":");
+      let arr = this.data.arr_time.split(":");
+      
+      if(dep[0]>arr[0]){
+          arr[0]+=24;
+      }
+      const depval = dep[0] * 60 + +dep[1];
+      const arrval = arr[0] * 60 + +arr[1];
+      const des = arrval - depval;
+      const hours = Math.floor(des / 60);
+      const minute = des % 60;
+
+      return `${hours}时${minute}分`;
+    }
+    }
 }
 </script>
 <style scoped lang="less">

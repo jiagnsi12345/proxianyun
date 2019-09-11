@@ -51,9 +51,10 @@ export default {
                         data:this.form
                     }).then(res=>{
                         this.$store.commit('user/setUserInfo',res.data)
-                        setTimeout(()=>{
-                            this.$router.replace('/')
-                        },1000)
+                        // setTimeout(()=>{
+                        //     this.$router.replace('/')
+                        // },1000)
+                        this.$router.back();
                     })
                 }else{
                   

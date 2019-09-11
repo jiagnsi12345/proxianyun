@@ -62,6 +62,7 @@
         <el-button type="warning" class="submit" @click="handleSubmit">提交订单</el-button>
       </div>
     </div>
+    <span v-show="false">{{allPrice}}</span>
   </div>
 </template>
 
@@ -69,7 +70,8 @@
 export default {
   data() {
     return {
-      infoData: {},
+      infoData: {
+      },
         users: [
           {
             username: "",
@@ -83,7 +85,8 @@ export default {
         seat_xid: this.$route.query.seat_xid,
         air: this.$route.query.id,
         captcha: "",
-        can:{}
+        can:{},
+        infoData:{}
      
     };
   },
@@ -128,18 +131,20 @@ export default {
             air:this.air,
             captcha:this.captcha
         }
+       
         this.users.forEach(element => {
-            if(!element.username||element.id){
+            if(!(element.username||element.id)){
                 this.$message.error('乘机人不能为空')
+                console.log(element.username,element.id)
             } 
         });
-        if(!contactName){
+        if(!this.contactName){
              this.$message.error('联系人姓名不能为空')
         }
-        if(!contactPhone){
+        if(!this.contactPhone){
             this.$message.error('联系电话不能为空')
         }
-        if(!captcha){
+        if(!this.captcha){
             this.$message.error('验证码不能为空')
         }
            
@@ -153,7 +158,14 @@ export default {
             data
            
         }).then(res=>{
-            console.log(res)
+          console.log(res)
+         const {id} = res.data.data
+           this.$router.push({
+             path:"/air/pay",
+             query:{
+               id
+             }
+           })
         })
     },
     // 管理保险id
@@ -174,9 +186,24 @@ export default {
       url: "/airs/" + this.$route.query.id,
       params:{seat_xid:this.$route.query.seat_xid}
     }).then(res => {
-      this.infoData = res.data;
-      console.log(res.data);
+      this.infoData=res.data
+      console.log(res.data)
+      this.$store.commit("air/setInfoData",this.infoData)
     });
+  },
+  computed:{
+    allPrice(){
+      if(!this.infoData.seat_infos){
+        return 0
+      }
+      let price = 0;
+      price += this.infoData.seat_infos.org_settle_price;
+      price +=this.infoData.airport_tax_audlet;
+      price+=30*this.insurances.length;
+      price*=this.users.length;
+      this.$store.commit("air/setAllPrice",price)
+      return price
+    }
   }
 };
 </script>

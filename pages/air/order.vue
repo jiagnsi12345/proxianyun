@@ -4,7 +4,7 @@
               <!-- 订单表单 -->
               <orderForm />
               <!-- 侧边栏 -->
-                  <orderAside class="aside"/>
+                  <orderAside :data="$store.state.air.infoData"/>
           </el-row>
     </div>
 </template>
